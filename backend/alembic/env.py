@@ -18,6 +18,9 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 from app.database import Base
 from app.models import user
+from app.models import patient          # noqa: F401
+from app.models import medical_record   # noqa: F401
+from app.models import surveillance     # noqa: F401
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

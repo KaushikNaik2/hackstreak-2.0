@@ -5,7 +5,7 @@ from app.database import Base, engine
 from app.routers import auth, health
 
 # Create all tables (useful for sqlite/dev, but alembic handles this in prod)
-# Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title=settings.APP_NAME,

@@ -51,6 +51,7 @@ class UserPublic(BaseModel):
     email: str
     full_name: Optional[str]
     avatar_url: Optional[str]
+    role: str
     auth_provider: str
     is_verified: bool
     created_at: datetime

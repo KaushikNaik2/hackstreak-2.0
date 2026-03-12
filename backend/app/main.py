@@ -2,9 +2,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.database import Base, engine
-from app.routers import auth, health
+from app.routers import auth, health, patients, records, surveillance, qr
 
-# Create all tables (useful for sqlite/dev, but alembic handles this in prod)
+# Import all models so Base.metadata knows about them
+from app.models import patient as _patient_model          # noqa: F401
+from app.models import medical_record as _record_model    # noqa: F401
+from app.models import surveillance as _surv_model        # noqa: F401
+
+# Create all tables on startup (for sqlite dev; alembic handles prod)
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -27,6 +32,10 @@ app.add_middleware(
 # Routers
 app.include_router(auth.router)
 app.include_router(health.router)
+app.include_router(patients.router)
+app.include_router(records.router)
+app.include_router(surveillance.router)
+app.include_router(qr.router)
 
 @app.get("/", tags=["Root"])
 def root():
